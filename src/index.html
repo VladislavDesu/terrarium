@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Террариум</title>
+   <link rel="stylesheet" href="css/styles.min.css">
+</head>
+
+<body>
+   <div class="game">
+      <div class="game__inner">
+         <main class="game__content content">
+            <div class="content__resources resources">
+               <div class="resources__item resources__level">
+                  <span class="resources__level-text">Уровень:</span>
+                  <span class="resources__level-count" id="level-count"></span>
+               </div>
+
+               <div class="resources__item resources__satiety">
+                  <span class="resources__satiety-text">Сытость:</span>
+                  <span class="resources__satiety-count" id="satiety-count"></span>
+               </div>
+
+               <div class="resources__item resources__currency">
+                  <span class="resources__currency-text">Крыски:</span>
+                  <span class="resources__currency-count" id="currency-count"></span>
+               </div>
+            </div>
+
+            <div class="content__clicker clicker" id="clicker" tabindex="0">
+               <div class="clicker__field" id="clicker-field"></div>
+               <img class="clicker__img" id="appearance-image" src="#" alt="Картинка Вашего питомца">
+            </div>
+
+            <div class="content__control control">
+               <div class="control__output" id="console-output"></div>
+               <button class="control__btn" id="level-btn">Уровень</button>
+               <button class="control__btn" id="food-btn">Купить еды</button>
+               <button class="control__btn" id="shop-btn">Магазин</button>
+               <button class="control__btn" id="info-btn">Питомец инфо</button>
+            </div>
+         </main>
+      </div>
+   </div>
+
+   <script type="module" src="scripts/createClass.js"></script>
+   <script type="module" src="scripts/startGame.js"></script>
+</body>
+
+</html>

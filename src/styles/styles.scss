@@ -1,0 +1,14 @@
+@import "libs/bootstrap-reboot";
+
+@import "variables";
+@import "mixins";
+@import "fonts";
+@import "default";
+
+@import "blocks/game";
+@import "blocks/content";
+@import "blocks/resources";
+@import "blocks/clicker";
+@import "blocks/control";
+
+@import "blocks/animations";

@@ -1,0 +1,26 @@
+.control {
+   &__output,
+   &__btn {
+      width: 100%;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #fff;
+      background-color: rgba(#006363, 0.6);
+   }
+
+   &__btn {
+      flex-grow: 1;
+      width: auto;
+      border: none;
+
+      &:hover,
+      &:focus {
+         background-color: rgba(#006363, 0.8);
+         outline: none;
+      }
+
+      &:active {
+         background-color: rgba(#006363, 1);
+      }
+   }
+}
