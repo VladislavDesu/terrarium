@@ -18,7 +18,7 @@
 
       &:hover img,
       &:focus img {
-         border: 2px solid #2cb1b1;
+         border: 2px solid $hoverColor;
       }
 
       &:focus {
