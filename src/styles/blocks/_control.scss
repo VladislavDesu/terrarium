@@ -1,6 +1,5 @@
 .control {
-   &__output,
-   &__btn {
+   &__console {
       width: 100%;
       padding: 5px 10px;
       border-radius: 5px;
@@ -10,8 +9,12 @@
 
    &__btn {
       flex-grow: 1;
-      width: auto;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #fff;
+      background-color: rgba($secondColor, 0.6);
       border: none;
+      transition: background-color 0.2s;
 
       &:hover,
       &:focus {
