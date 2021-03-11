@@ -3,8 +3,10 @@
 export default class Game {
    constructor(animal) {
       this._animal = animal;
+
       this._clickerField = document.querySelector("#clicker-field");
       this._consoleOutput = document.querySelector("#console-output");
+      this._notification = document.querySelector("#notification");
 
       this._levelOutput = document.querySelector("#level-count");
       this._satietyOutput = document.querySelector("#satiety-count");
@@ -17,51 +19,28 @@ export default class Game {
       this._clickerBtn = document.querySelector("#clicker");
    }
 
+   startGame() {
+      this.updateInfo();
+      this.clickBtns();
+   }
+
    updateInfo() {
-      this.clearMessage();
       this._levelOutput.textContent = this._animal.lvl;
       this._satietyOutput.textContent = this._animal.satiety;
       this._currencyOutput.textContent = this._animal.currency;
       this._appearanceImage.src = this._animal.fullImagePath;
-   }
-
-   startGame() {
-      this.updateInfo();
       this.showName();
-      this.clickClickerBtn();
-      this.clickInfoBtn();
-      this.clickFoodBtn();
-      this.clickLvlBtn();
    }
 
    feedAnimal() {
       this._animal.feed();
+      this.randomGetFood();
       this.updateInfo();
-      this.showName();
-      this.addCounterElement();
-      this.deleteCounterElement();
-   }
-
-   checkCurrency() {
-      if (this._animal.currency >= this._animal.foodCost) {
-         this._animal.foodUp();
-         return "Еда куплена";
-      } else {
-         return "Еда стоит: " + this._animal.foodCost + " Крысок";
-      }
-   }
-
-   сheckSatiety() {
-      if (this._animal.satiety >= this._animal.lvlCost) {
-         this._animal.lvlUp();
-         return "Уровень повышен";
-      } else {
-         return "Уровень стоит: " + this._animal.lvlCost + " Сытости";
-      }
+      this.showCounterElement();
    }
 
    showInfo() {
-      this.clearMessage();
+      this.clearMessage(this._consoleOutput);
       this.sayMessage("Имя: " + this._animal.name);
       this.sayMessage("Здоровье: " + this._animal.health);
       this.sayMessage("Крыски: " + this._animal.currency);
@@ -71,49 +50,129 @@ export default class Game {
       this._consoleOutput.textContent = "Ваш питомец: " + this._animal.name;
    }
 
-   clickInfoBtn() {
-      this._infoBtn.addEventListener("click", (event) => {
+   randomGetFood() {
+      let chance = Math.round(Math.random() * 99 + 1);
+      if (chance <= 2) {
+         let foundedFood = Math.round(Math.random() * 9 + 1);
+         this._animal.currency += foundedFood;
+         this.showSuccessNotification(`Вы нашли ${foundedFood} Крысок`);
+      }
+   }
+
+   // Check methods
+   checkCurrency() {
+      if (this._animal.currency >= this._animal.foodCost) {
+         this._animal.foodUp();
+         return this.showSuccessNotification("Еда куплена");
+      } else {
+         return this.showErrorNotification(
+            "Еда стоит: " + this._animal.foodCost + " Крысок"
+         );
+      }
+   }
+
+   сheckSatiety() {
+      if (this._animal.satiety >= this._animal.lvlCost) {
+         this._animal.lvlUp();
+         return this.showSuccessNotification("Уровень повышен");
+      } else {
+         return this.showErrorNotification(
+            "Уровень стоит: " + this._animal.lvlCost + " Сытости"
+         );
+      }
+   }
+
+   // ClickBtns methods
+   clickBtns() {
+      this.clickClickerBtn();
+      this.clickLvlBtn();
+      this.clickFoodBtn();
+      this.clickInfoBtn();
+   }
+
+   clickEventBtn(btn, ...methods) {
+      btn.addEventListener("click", (event) => {
          event.preventDefault();
-         this.showInfo();
+         methods.forEach((element) => {
+            element.call(this);
+         });
       });
+   }
+
+   clickInfoBtn() {
+      this.clickEventBtn(this._infoBtn, this.showInfo);
    }
 
    clickClickerBtn() {
-      this._clickerBtn.addEventListener("click", (event) => {
-         event.preventDefault();
-         this.feedAnimal();
-      });
+      this.clickEventBtn(this._clickerBtn, this.feedAnimal);
    }
 
    clickFoodBtn() {
-      this._foodBtn.addEventListener("click", (event) => {
-         event.preventDefault();
-         let info = this.checkCurrency();
-         this.updateInfo();
-         this.sayMessage(info);
-      });
+      this.clickEventBtn(this._foodBtn, this.checkCurrency, this.updateInfo);
    }
 
    clickLvlBtn() {
-      this._lvlBtn.addEventListener("click", (event) => {
-         event.preventDefault();
-         let info = this.сheckSatiety();
-         this.updateInfo();
-         this.sayMessage(info);
-      });
+      this.clickEventBtn(this._lvlBtn, this.сheckSatiety, this.updateInfo);
    }
 
+   clickClickerAuto(obj) {
+      setTimeout(function feeding() {
+         obj.feedAnimal();
+         setTimeout(feeding, 1000);
+      }, 1000);
+   }
+
+   // Notification methods
+   showSuccessNotification(message) {
+      let notification = this.createNotification(message);
+      notification.classList.add("notification__item--success");
+      this.hideNotification(notification);
+   }
+
+   showErrorNotification(message) {
+      let notification = this.createNotification(message);
+      notification.classList.add("notification__item--error");
+      this.hideNotification(notification);
+   }
+
+   createNotification(message) {
+      this.clearMessage(this._notification);
+      let newNotification = document.createElement("span");
+      newNotification.textContent = message;
+      newNotification.classList.add("notification__item");
+      newNotification.classList.add("show-notification");
+      this._notification.appendChild(newNotification);
+      return newNotification;
+   }
+
+   hideNotification(notification) {
+      setTimeout(() => {
+         notification.classList.add("hide-notification");
+         notification.classList.remove("show-notification");
+         setTimeout(() => {
+            notification.remove();
+         }, 500);
+      }, 3000);
+   }
+
+   // Message methods
    sayMessage(message) {
       let consoleDiv = document.createElement("div");
       consoleDiv.textContent = message;
       this._consoleOutput.appendChild(consoleDiv);
    }
 
-   clearMessage() {
-      this._consoleOutput.textContent = "";
+   clearMessage(message) {
+      message.textContent = "";
    }
 
-   addCounterElement() {
+   // CounterElement methods
+   showCounterElement() {
+      this.createCounterElement();
+      this.deleteCounterElement();
+   }
+
+   createCounterElement() {
       let newElement = document.createElement("span");
       newElement.textContent = "+" + this._animal.food;
       newElement.classList.add("clicker__count");

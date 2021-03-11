@@ -4,10 +4,10 @@ class Animal {
    constructor(name, appearance) {
       this._name = name;
       this._appearance = appearance;
-      this._satiety = 100;
+      this._satiety = 0;
       this._food = 1;
       this._foodCost = 10;
-      this._lvl = 0;
+      this._lvl = 1;
       this._lvlCost = 100;
       this._currency = 0;
       this._health = 100;
@@ -41,6 +41,10 @@ class Animal {
       return this._currency;
    }
 
+   set currency(food) {
+      this._currency = food;
+   } 
+
    get appearance() {
       return this._appearance;
    }
@@ -67,7 +71,7 @@ class Animal {
    lvlUp() {
       this._lvl += 1;
       this._satiety -= this.lvlCost;
-      this._lvlCost *= 2;
+      this._lvlCost += 100;
       this._food += 1;
       this._currency += 25;
       return this._lvl;

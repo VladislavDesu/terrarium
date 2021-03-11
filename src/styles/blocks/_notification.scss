@@ -1,0 +1,29 @@
+.notification {
+   &__list {
+      position: absolute;
+      top: 0;
+      left: 50%;
+   }
+
+   &__item {
+      position: absolute;
+      padding: 10px 20px;
+      white-space: nowrap;
+      border-radius: 5px;
+      background-color: $mainColor;
+      box-shadow: 0 0 10px 5px $secondColor;
+      transform: translateX(-50%);
+
+      &--success {
+         color: #7eff78;
+         background-color: $successColor;
+         box-shadow: 0 0 10px 5px #055800;
+      }
+
+      &--error {
+         color: #e1b4b4;
+         background-color: $errorColor;
+         box-shadow: 0 0 10px 5px #6f0b0e;
+      }
+   }
+}

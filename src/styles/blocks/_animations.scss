@@ -10,6 +10,44 @@
    }
 }
 
+@keyframes showNotification {
+   from {
+      opacity: 0;
+      top: -25px;
+   }
+
+   to {
+      opacity: 1;
+      top: 30px;
+   }
+}
+
+@keyframes hideNotification {
+   from {
+      opacity: 1;
+      top: 30px;
+   }
+
+   to {
+      opacity: 0;
+      top: 30px;
+   }
+}
+
+.hide-notification {
+   animation-name: hideNotification;
+   animation-duration: 0.5s;
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+}
+
+.show-notification {
+   animation-name: showNotification;
+   animation-duration: 0.5s;
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+}
+
 .to-bottom {
    animation-name: toBottom;
    animation-duration: 1.5s;
