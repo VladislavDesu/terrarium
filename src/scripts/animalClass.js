@@ -21,8 +21,16 @@ class Animal {
       return this._satiety;
    }
 
+   set satiety(satiety) {
+      return this._satiety = satiety;
+   }
+
    get food() {
       return this._food;
+   }
+
+   set food(food) {
+      return this._food = food;
    }
 
    get foodCost() {
@@ -33,6 +41,10 @@ class Animal {
       return this._lvl;
    }
 
+   set lvl(lvl) {
+      return this._lvl = lvl;
+   }
+
    get lvlCost() {
       return this._lvlCost;
    }
@@ -41,8 +53,8 @@ class Animal {
       return this._currency;
    }
 
-   set currency(food) {
-      this._currency = food;
+   set currency(currency) {
+      return this._currency = currency;
    } 
 
    get appearance() {

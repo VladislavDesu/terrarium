@@ -9,4 +9,4 @@ function startGame(name, appearance) {
    game.startGame();
 }
 
-startGame("Аня", "snake1.jpg");
+startGame("Змейка", "snake1.jpg");

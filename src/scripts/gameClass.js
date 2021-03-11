@@ -55,7 +55,13 @@ export default class Game {
       if (chance <= 2) {
          let foundedFood = Math.round(Math.random() * 9 + 1);
          this._animal.currency += foundedFood;
-         this.showSuccessNotification(`Вы нашли ${foundedFood} Крысок`);
+         if (foundedFood === 1) {
+            this.showSuccessNotification(`Вы нашли ${foundedFood} Крыску`);
+         } else if (foundedFood === 2 || foundedFood === 3 || foundedFood === 4) {
+            this.showSuccessNotification(`Вы нашли ${foundedFood} Крыски`);
+         } else {
+            this.showSuccessNotification(`Вы нашли ${foundedFood} Крысок`);
+         }
       }
    }
 
